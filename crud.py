@@ -15,6 +15,7 @@ def add_document(db: Session, docInfo, df1, df2, df3):
     db.add(doc)
     db.commit()
     db.refresh(doc)
+    add_okpo(df1['Форма по ОКПО'].iloc[0])
     add_deliveries(db, df2, doc)
     add_dtable_rows(db, df3, doc)
     return doc
@@ -55,6 +56,11 @@ def add_dtable_rows(db: Session, df3, doc):
                                                  )
         db.add(table_row)
         db.commit()
+
+def add_okpo(db: Session, okpo_given):
+    okpo = models.OKPO(okpo=okpo_given)
+    db.add(okpo)
+    db.commit()
 
 def search_okpo(db: Session, okpo):
     return db.query(models.OKPO).filter(models.OKPO.okpo.in_([okpo])).count() > 0
