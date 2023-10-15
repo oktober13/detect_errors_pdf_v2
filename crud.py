@@ -15,7 +15,6 @@ def add_document(db: Session, docInfo, df1, df2, df3):
     db.add(doc)
     db.commit()
     db.refresh(doc)
-    add_okpo(df1['Форма по ОКПО'].iloc[0])
     add_deliveries(db, df2, doc)
     add_dtable_rows(db, df3, doc)
     return doc
