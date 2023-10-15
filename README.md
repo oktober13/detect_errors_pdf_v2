@@ -1,5 +1,5 @@
 # API. Автоматизация обработки бухгалтерских документов
-![image](https://github.com/oktober13/detect_errors_pdf_v2/assets/114009321/3a690f69-d2a4-41e4-bf83-48e3a92deeed)
+![image](https://github.com/oktober13/detect_errors_pdf_v2/assets/114009321/ab5f00d6-2f38-4a46-b50a-8c331328b848)
 
 ## Описание проекта
 
