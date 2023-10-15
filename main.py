@@ -1,12 +1,14 @@
+import os
+import crud
+import models
+import parse_to_dicts
+
 from fastapi import FastAPI, Depends, Request, HTTPException, File, UploadFile
 from typing import List
 from process_pdf import process_pdf_files, unparse_pdf
 from database import Session, engine
-import os
 from validator import validate_m_11
-import crud
-import models
-import parse_to_dicts
+
 
 app = FastAPI()
 
@@ -18,6 +20,9 @@ def get_db():
         db.close()
 
 models.Base.metadata.create_all(bind=engine)
+
+if 'M-11Pdf' not in os.listdir():
+    os.mkdir('M-11Pdf')
 
 @app.post("/forcedoc", status_code=201)
 async def upload_pdf_files(db=Depends(get_db), files: List[UploadFile] = File(...)):
