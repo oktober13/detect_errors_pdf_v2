@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="mb-5">
+    <form enctype="multipart/form-data" class="container d-flex justify-content-center flex-column align-items-center"
+          method="POST" action="/">
+        {% csrf_token %}
+        <div class="mb-3">
+            <h2 class="mb-3">Загрузка документов на проверку</h2>
+            <input name="file" class="form-control mb-2 input_form" type="file" accept=".pdf" multiple required>
+            <select name="file_type" class="form-select" aria-label="Default select example" required>
+                <option disabled>Выберите тип документа</option>
+                <option value="11">М-11</option>
+                <option value="76s">ФМУ-76</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+</div>
+
+<div class="mb-5">
+    <form class="container d-flex justify-content-center flex-column align-items-center">
+        <div class="mb-3">
+            <h2 class="mb-3">Загрузка справочника значений</h2>
+            <select class="form-select input_form mb-2" aria-label="Default select example" required>
+                <option disabled selected>Выберите тип документа</option>
+                <option value="1">М-11</option>
+                <option value="2">ФМУ-76</option>
+            </select>
+            <select class="form-select mb-3" aria-label="Default select example" required>
+                <option disabled selected>Выберите ключ</option>
+                <option value="1">Организация</option>
+                <option value="2">Код вида операции</option>
+                <option value="3">Отправитель, табельный номер МОЛ (ЛОС)</option>
+                <option value="4">Учетная единица выпуска продукции (работ, услуг)</option>
+                <option value="5">Корреспондирующий счет, субсчет</option>
+            </select>
+            <input class="form-control mb-2" type="file" id="formFileBook" accept=".csv" required>
+        </div>
+        <button type="submit" style="color:white" class="btn btn-info">Загрузить справочник</button>
+    </form>
+</div>
+
+<div class="mb-4">
+    <form class="container d-flex justify-content-center flex-column align-items-center">
+        <div class="mb-3">
+            <h2 class="mb-3">Загрузка новых форм</h2>
+            <input class="form-control mb-2" placeholder="Введите наименование формы" required>
+            <input class="form-control mb-2" placeholder="Выберите файл шаблона" type="file" id="formFileBook2"
+                   accept=".csv" required>
+        </div>
+        <button type="submit" style="color:white" class="btn btn-info">Загрузить шаблон формы</button>
+    </form>
+</div>
+{% endblock %}

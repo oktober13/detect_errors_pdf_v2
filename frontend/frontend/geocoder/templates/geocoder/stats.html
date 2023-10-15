@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container d-flex justify-content-center flex-column">
+        {% if files %}
+            <h2>Список файлов и ошибок:</h2>
+            {% for key, val in files.items %}
+                <h3>Файл: {{ key }}</h3>
+                {% if file.errors %}
+                    <ul>
+                        {% for error in val %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Ошибок в файле нет</p>
+                {% endif %}
+            {% endfor %}
+
+            {% if files|length > 1 %}
+                <h2>График ошибок</h2>
+                <canvas id="errorChart"></canvas>
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script>
+                    var errorChart = new Chart(document.getElementById('errorChart'), {
+                        type: 'bar',
+                        data: {
+                            labels: [
+                                {% for key, val in stat.items %}
+                                    "{{ key }}",
+                                {% endfor %}
+                            ],
+                            datasets: [{
+                                label: 'Количество ошибок',
+                                data: [
+                                    {% for key, val in stat.items %}
+                                        {{ val }},
+                                    {% endfor %}
+                                ],
+                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                </script>
+            {% endif %}
+        {% else %}
+            <p>Нет информации об ошибках</p>
+        {% endif %}
+</div>
+{% endblock %}
